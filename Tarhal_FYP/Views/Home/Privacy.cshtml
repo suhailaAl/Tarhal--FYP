@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+<div>
+    <h1>Plan</h1>
+    @for(int d = 0; d<ViewBag.plan.Count; d++){
+        <h2>@($"Day {d+1}:")</h2>
+        foreach(var p in ViewBag.plan[d]){
+            <p>@($"{p.Id}:  {p.Name}:{p.Type},   {p.Duration},   {p.Longitude},   {p.Latitude}")</p>
+        }
+    }
+</div>

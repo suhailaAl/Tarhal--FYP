@@ -1,0 +1,119 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    ViewData["Title"] = "Nearby Attractions";
+}
+<h2>Near of You</h2>
+<div id="map" style="height: 600px; width: 100%;"></div>
+
+<!-- Legend Box -->
+<div id="map-legend">
+    <h4>Map Key</h4>
+    <ul>
+        <li><span class="red" ></span> Attractions</li>
+        <li><span class="green"></span> Restaurants</li>
+        <li><span class="blue"></span> Accommodations</li>
+        <li><span class="yellow"></span> Parks</li>
+    </ul>
+</div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJifUpVnSdInDEmbOgyyZpOAWwYZJMp0E&libraries=places&callback=initMap" async defer></script>
+
+
+<script>
+    let map, infoWindow;
+
+    const typeSettings = {
+        "tourist_attraction": { color: "http://maps.google.com/mapfiles/ms/icons/red-dot.png", label: "Attraction" },
+        "restaurant": { color: "http://maps.google.com/mapfiles/ms/icons/green-dot.png", label: "Restaurant" },
+        "hotel": { color: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png", label: "Accommodation" },
+        "park": { color: "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png", label: "Park" }
+    };
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 0, lng: 0 },
+            zoom: 12
+        });
+
+        infoWindow = new google.maps.InfoWindow();
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const userLocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    map.setCenter(userLocation);
+
+                    new google.maps.Marker({
+                        position: userLocation,
+                        map: map,
+                        icon: { path: google.maps.SymbolPath.CIRCLE, scale: 10, fillColor: "#4285F4", fillOpacity: 1, strokeWeight: 0 },
+                        title: "You are here"
+                    });
+
+                    fetchNearbyPlaces(userLocation);
+                },
+                () => handleLocationError(true, map.getCenter())
+            );
+        } else {
+            handleLocationError(false, map.getCenter());
+        }
+    }
+
+    function handleLocationError(browserHasGeolocation, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(
+            browserHasGeolocation
+                ? "Error: The Geolocation service failed."
+                : "Error: Your browser doesn't support geolocation."
+        );
+        infoWindow.open(map);
+    }
+
+    function fetchNearbyPlaces(userLocation) {
+        fetch(`/Tourist/GetNearby?latitude=${userLocation.lat}&longitude=${userLocation.lng}`)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(place => {
+                    addPlaceMarker(place);
+                });
+            })
+            .catch(error => console.error("Error fetching places:", error));
+    }
+
+    function addPlaceMarker(place) {
+        const typeInfo = typeSettings[place.type] || { color: "http://maps.google.com/mapfiles/ms/icons/red-dot.png", label: "Unknown" };
+
+        const marker = new google.maps.Marker({
+            position: { lat: place.lat, lng: place.lng },
+            map: map,
+            icon: typeInfo.color,
+            title: `${place.name} (${typeInfo.label})`
+        });
+
+        const infoContent = `
+            <div>
+                <h5 style="color: black;">${place.name}</h5>
+                <p>Type: ${typeInfo.label}</p>
+                <p>Rating: ${place.rating || "N/A"}</p>
+                <p>${place.vicinity}</p>
+            </div>
+        `;
+
+        const infoWindow = new google.maps.InfoWindow({ content: infoContent });
+        marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+        });
+    }
+</script>
+
+<style>
+    
+</style>

@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    // Initialize the database context
+    TarhalDbContext context = new TarhalDbContext();
+    {
+        // Fetch all images
+        var images = context.Images;
+
+        if (images.Any())
+        {
+            foreach (var image in images)
+            {
+                if (image.ImageData != null)
+                {
+
+                    string base64Image = Convert.ToBase64String(image.ImageData);
+                    <p>
+                        <img src="data:image/jpeg;base64,@base64Image"
+                             alt="Image @image.ServiceId" />
+                    </p>
+                    <p>@image.ServiceId</p>
+                }
+
+            }
+
+        }
+        else
+        {
+            <p>No images found.</p>
+        }
+
+        <form asp-action="Upload" enctype="multipart/form-data" method="post">
+            <div class="form-group">
+                <label for="image">Choose Image:</label>
+                <input type="file" name="ImageFiles" id="image" multiple class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    }
+}

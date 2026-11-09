@@ -1,0 +1,261 @@
+﻿@model Tarhal_FYP.Models.Service
+
+@{
+    ViewData["Title"] = "Update Service";
+    int serviceId = Convert.ToInt32(Url.ActionContext.RouteData.Values["id"]);
+    TarhalDbContext db = new TarhalDbContext();
+}
+
+<h4>Update Service</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update_Service">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ServiceId" />
+            @{
+                var service = db.Services.Find(serviceId);
+                switch(service.Type){
+                    case "Accommodation":
+                        <div class="white-form-step" id="Accommodation">
+                            <div class="input-wrapper">
+                                <label for="accommodation-name" class="white-form-text">Name</label><input class="form-field white-form-field w-input" maxlength="256" name="accommodation-name" if-id="1c390d22-190b-daec-a4e3-3a21b6743aa7" data-name="accommodation name" placeholder="" type="text" id="accommodation-name">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="service-description" class="white-form-text">description</label><textarea class="form-field white-form-field w-input" maxlength="5000" name="service-description" if-id="2e232931-f33d-faa3-fd87-2474773f5b01" data-name="service description" placeholder="" id="service-description" required=""></textarea>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="accommodation-address" class="white-form-text">Address</label><input class="form-field white-form-field w-input" maxlength="256" name="accommodation-address" if-id="1c390d22-190b-daec-a4e3-3a21b6743aab" data-name="accommodation address" placeholder="" type="text" id="accommodation-address">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="accommodation-location" class="white-form-text">location</label><input class="form-field white-form-field w-input" maxlength="256" name="accommodation-location" if-id="1c390d22-190b-daec-a4e3-3a21b6743ac3" data-name="accommodation location" placeholder="" type="text" id="accommodation-location">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="recommendation-type" class="white-form-text">type</label>
+                                <div class="select-wrapper select-wrapper-2">
+                                    <select id="accommodation-type" name="accommodation-type" data-name="accommodation type" required="" if-id="13eb1fa1-89e2-7713-cc0c-9424a697adca" class="form-field white-form-field select w-select">
+                                        <option value="">Select recommendation type...</option>
+                                        <option value="hotel">Hotel</option>
+                                        <option value="resort">Resort</option>
+                                        <option value="villa">Villa</option>
+                                        <option value="appartement">Appartement</option>
+                                    </select>
+                                </div>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="accommodation-phone" class="white-form-text">Phone number</label><input class="form-field white-form-field w-input" maxlength="256" name="accommodation-phone" if-id="788ed2fb-4f4e-6d5c-e670-f20e35e1699d" data-name="accommodation phone" placeholder="" type="tel" id="accommodation-phone">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="accommodation-website" class="white-form-text">website</label><input class="form-field white-form-field w-input" maxlength="256" name="accommodation-website" if-id="1c390d22-190b-daec-a4e3-3a21b6743ab3" data-name="accommodation website" placeholder="" type="url" id="accommodation-website">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="accommodation-amenities" class="white-form-text">amenities</label><textarea class="form-field white-form-field w-input" maxlength="5000" name="accommodation-amenities" if-id="f1d806f0-798b-85bc-64fa-74ccd3c31919" data-name="accommodation amenities" placeholder="" id="accommodation-amenities" required=""></textarea>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="accommodation-price" class="white-form-text">price per night</label><input class="form-field white-form-field w-input" maxlength="256" name="accommodation-price" if-id="1c390d22-190b-daec-a4e3-3a21b6743abf" data-name="accommodation price" placeholder="" type="number" id="accommodation-price" required="">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label class="w-checkbox checkbox-field">
+                                    <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div><input type="checkbox" name="booking-availability" id="booking-availability" data-name="booking availability" if-id="d1b9715a-ac4a-c85a-1883-90a901c43b81" style="opacity:0;position:absolute;z-index:-1"><span class="white-form-text checkbox-label w-form-label" for="booking-availability">Tourist can book</span>
+                                </label>
+                            </div>
+                            <div class="input-wrapper">
+                                <label class="w-checkbox checkbox-field">
+                                    <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div><input type="checkbox" name="accommodation-availability" id="accommodation-availability" data-name="accommodation availability" if-id="a93d8fb9-41fa-7fcd-c50c-0be1172307a5" style="opacity:0;position:absolute;z-index:-1"><span class="white-form-text checkbox-label w-form-label" for="accommodation-availability">accommodation is available</span>
+                                </label>
+                            </div><input type="submit" data-wait="Please wait..." class="button white-form-button w-button" id="white-form-button" value="Submit">
+                        </div>
+                        break;
+                    case "Restaurant":
+                        <div class="white-form-step" id="Restaurant">
+                            <div class="input-wrapper">
+                                <label for="service-name-4" class="white-form-text">Name</label><input class="form-field white-form-field w-input" maxlength="256" name="Restaurant-Name" if-id="5e7948de-938a-1d63-26ab-2b234893ad00" data-name="Restaurant Name" placeholder="" type="text" id="Restaurant-Name">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Restaurant-Description" class="white-form-text">description</label><textarea class="form-field white-form-field w-input" maxlength="5000" name="Restaurant-Description" if-id="5e7948de-938a-1d63-26ab-2b234893ad06" data-name="Restaurant Description" placeholder="" id="Restaurant-Description" required=""></textarea>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Restaurant-Address" class="white-form-text">Address</label><input class="form-field white-form-field w-input" maxlength="256" name="Restaurant-Address" if-id="5e7948de-938a-1d63-26ab-2b234893ad0c" data-name="Restaurant Address" placeholder="" type="text" id="Restaurant-Address">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Restaurant-Location" class="white-form-text">location</label><input class="form-field white-form-field w-input" maxlength="256" name="Restaurant-Location" if-id="5e7948de-938a-1d63-26ab-2b234893ad12" data-name="Restaurant Location" placeholder="" type="text" id="Restaurant-Location">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="recommendation-type-4" class="white-form-text">type</label>
+                                <div class="select-wrapper select-wrapper-2">
+                                    <select id="Restaurant-Type" name="Restaurant-Type" data-name="Restaurant Type" required="" if-id="5e7948de-938a-1d63-26ab-2b234893ad19" class="form-field white-form-field select w-select">
+                                        <option value="restaurant">Restaurant</option>
+                                        <option value="cafe">Coffee Shop</option>
+                                    </select>
+                                </div>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Restaurant-Website" class="white-form-text">website</label><input class="form-field white-form-field w-input" maxlength="256" name="Restaurant-Website" if-id="5e7948de-938a-1d63-26ab-2b234893ad25" data-name="Restaurant Website" placeholder="" type="url" id="Restaurant-Website">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Cuisine-type" class="white-form-text">Cuisine type</label><textarea class="form-field white-form-field w-input" maxlength="5000" name="Cuisine-type" if-id="5e7948de-938a-1d63-26ab-2b234893ad2b" data-name="Cuisine type" placeholder="" id="Cuisine-type" required=""></textarea>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Restaurant-Price" class="white-form-text">price per night</label><input class="form-field white-form-field w-input" maxlength="256" name="Restaurant-Price" if-id="5e7948de-938a-1d63-26ab-2b234893ad31" data-name="Restaurant Price" placeholder="" type="number" id="Restaurant-Price" required="">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label class="w-checkbox checkbox-field">
+                                    <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div><input type="checkbox" name="booking-availability-4" id="booking-availability-4" data-name="Booking Availability 4" if-id="5e7948de-938a-1d63-26ab-2b234893ad36" style="opacity:0;position:absolute;z-index:-1"><span class="white-form-text checkbox-label w-form-label" for="booking-availability-4">Tourist can book</span>
+                                </label>
+                            </div><input type="submit" data-wait="Please wait..." class="button white-form-button w-button" id="white-form-button" value="Submit">
+                        </div>
+                        break;
+                    case "Attraction":
+                        <div class="white-form-step" id="Attraction">
+                            <div class="input-wrapper">
+                                <label for="Attraction-Name" class="white-form-text">Name</label><input class="form-field white-form-field w-input" maxlength="256" name="Attraction-Name" if-id="31b016d9-82e7-2985-e6af-b6f923998fbe" data-name="Attraction Name" placeholder="" type="text" id="Attraction-Name">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Attraction-Description" class="white-form-text">description</label><textarea class="form-field white-form-field w-input" maxlength="5000" name="Attraction-Description" if-id="31b016d9-82e7-2985-e6af-b6f923998fc4" data-name="Attraction Description" placeholder="" id="Attraction-Description" required=""></textarea>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Attraction-Address" class="white-form-text">Address</label><input class="form-field white-form-field w-input" maxlength="256" name="Attraction-Address" if-id="31b016d9-82e7-2985-e6af-b6f923998fca" data-name="Attraction Address" placeholder="" type="text" id="Attraction-Address">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Attraction-Location" class="white-form-text">location</label><input class="form-field white-form-field w-input" maxlength="256" name="Attraction-Location" if-id="31b016d9-82e7-2985-e6af-b6f923998fd0" data-name="Attraction Location" placeholder="" type="text" id="Attraction-Location">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="recommendation-type-3" class="white-form-text">type</label>
+                                <div class="select-wrapper select-wrapper-2">
+                                    <select id="Attraction-Type" name="Attraction-Type" data-name="Attraction Type" required="" if-id="31b016d9-82e7-2985-e6af-b6f923998fd7" class="form-field white-form-field select w-select">
+                                        <option value="">Select attraction type..</option>
+                                        <option value="historical">Historical</option>
+                                        <option value="cultural">Cultural</option>
+                                        <option value="shopping">Shopping</option>
+                                        <option value="nature">Nature</option>
+                                    </select>
+                                </div>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="accommodation-phone-3" class="white-form-text">Phone number</label><input class="form-field white-form-field w-input" maxlength="256" name="accommodation-phone-3" if-id="31b016d9-82e7-2985-e6af-b6f923998fdd" data-name="Accommodation Phone 3" placeholder="" type="tel" id="accommodation-phone-3">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Attraction-opening-hours" class="white-form-text">Opening hours</label><input class="form-field white-form-field w-input" maxlength="256" name="Attraction-opening-hours" if-id="31b016d9-82e7-2985-e6af-b6f923998fe3" data-name="Attraction opening hours" placeholder="" type="text" id="Attraction-opening-hours">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Attraction-popular-times" class="white-form-text">popular times</label><textarea class="form-field white-form-field w-input" maxlength="5000" name="Attraction-popular-times" if-id="31b016d9-82e7-2985-e6af-b6f923998fe9" data-name="Attraction popular times" placeholder="" id="Attraction-popular-times" required=""></textarea>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Attraction-Fee-Price" class="white-form-text">fee price</label><input class="form-field white-form-field w-input" maxlength="256" name="Attraction-Fee-Price" if-id="31b016d9-82e7-2985-e6af-b6f923998fef" data-name="Attraction Fee Price" placeholder="" type="number" id="Attraction-Fee-Price">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label class="w-checkbox checkbox-field">
+                                    <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div><input type="checkbox" name="booking-availability-3" id="booking-availability-3" data-name="Booking Availability 3" if-id="31b016d9-82e7-2985-e6af-b6f923998ff4" style="opacity:0;position:absolute;z-index:-1"><span class="white-form-text checkbox-label w-form-label" for="booking-availability-3">Tourist can book</span>
+                                </label>
+                            </div><input type="submit" data-wait="Please wait..." class="button white-form-button w-button" id="white-form-button" value="Submit">
+                        </div>
+                        break;
+                    case "Activity":
+                        <div class="white-form-step" id="Activity">
+                            <div class="input-wrapper">
+                                <label for="Activity-name" class="white-form-text">Name</label><input class="form-field white-form-field w-input" maxlength="256" name="Activity-name" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ecbe" data-name="Activity name" placeholder="" type="text" id="Activity-name">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="activity-description" class="white-form-text">description</label><textarea class="form-field white-form-field w-input" maxlength="5000" name="activity-description" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ecc4" data-name="activity description" placeholder="" id="activity-description" required=""></textarea>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="activity-address" class="white-form-text">Address</label><input class="form-field white-form-field w-input" maxlength="256" name="activity-address" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ecca" data-name="activity address" placeholder="" type="text" id="activity-address">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="activity-location" class="white-form-text">location</label><input class="form-field white-form-field w-input" maxlength="256" name="activity-location" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ecd0" data-name="activity location" placeholder="" type="text" id="activity-location">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="recommendation-type-2" class="white-form-text">Category</label>
+                                <div class="select-wrapper select-wrapper-2">
+                                    <select id="Activity-Category" name="Activity-Category" data-name="Activity Category" required="" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ecd7" class="form-field white-form-field select w-select">
+                                        <option value="">Select activity category...</option>
+                                        <option value="adventure">Adventure</option>
+                                        <option value="art and theater">Art and Theater</option>
+                                        <option value="shopping">Shopping</option>
+                                        <option value="historical">Historical</option>
+                                        <option value="cultural">Cultural</option>
+                                    </select>
+                                </div>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="recommendation-type" class="white-form-text">type</label>
+                                <div class="select-wrapper select-wrapper-2">
+                                    <select id="Activity-Type-3" name="Activity-Type" data-name="Activity Type" required="" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ecd7" class="form-field white-form-field select w-select">
+                                        <option value="">Select activity type...</option>
+                                        <option value="hiking">Hiking</option>
+                                        <option value="swimming">Swimming</option>
+                                        <option value="kayaking">Kayaking</option>
+                                        <option value="wildlife viewing">Wildlife Viewing</option>
+                                    </select>
+                                </div>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="accommodation-website-2" class="white-form-text">website</label><input class="form-field white-form-field w-input" maxlength="256" name="accommodation-website-2" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ece3" data-name="Accommodation Website 2" placeholder="" type="url" id="accommodation-website-2">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Activity-schedule" class="white-form-text">Schedule</label><textarea class="form-field white-form-field w-input" maxlength="5000" name="Activity-schedule" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ece9" data-name="Activity schedule" placeholder="" id="Activity-schedule" required=""></textarea>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Activity-Policies" class="white-form-text">Policies</label><textarea class="form-field white-form-field w-input" maxlength="5000" name="Activity-Policies" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ece9" data-name="Activity Policies" placeholder="" id="Activity-Policies" required=""></textarea>
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label for="Activity-Price" class="white-form-text">price</label><input class="form-field white-form-field w-input" maxlength="256" name="Activity-Price" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ecef" data-name="Activity Price" placeholder="" type="number" id="Activity-Price" required="">
+                                <div if-element="error" class="error-message">Error</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label class="w-checkbox checkbox-field">
+                                    <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div><input type="checkbox" name="booking-availability-2" id="booking-availability-2" data-name="Booking Availability 2" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ecf4" style="opacity:0;position:absolute;z-index:-1"><span class="white-form-text checkbox-label w-form-label" for="booking-availability-2">Tourist can book</span>
+                                </label>
+                            </div>
+                            <div class="input-wrapper">
+                                <label class="w-checkbox checkbox-field">
+                                    <div class="w-checkbox-input w-checkbox-input--inputType-custom checkbox"></div><input type="checkbox" name="accommodation-availability-2" id="accommodation-availability-2" data-name="Accommodation Availability 2" if-id="e7ea08ff-ba85-6848-95e2-a946e3b0ecf9" style="opacity:0;position:absolute;z-index:-1"><span class="white-form-text checkbox-label w-form-label" for="accommodation-availability-2">Activity is available</span>
+                                </label>
+                            </div><input type="submit" data-wait="Please wait..." class="button white-form-button w-button" id="white-form-button" value="Submit">
+                        </div>
+                        break;
+                    default:
+                        break;
+                }
+            }
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

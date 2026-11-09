@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Tarhal_FYP.Models.ModelViews.SignUpViewModel
+
+@{
+	ViewData["Title"] = "Sign Up";
+}
+
+<h2>Register</h2>
+
+<p class="text-danger">
+	@ViewData.ModelState[string.Empty]?.Errors.FirstOrDefault()?.ErrorMessage
+</p>
+<div class="pop-up-container">
+	<div class="pop-up-bg"></div>
+	<div class="account-form-container">
+		<h2 class="form-step-label">Sign Up</h2>
+
+		@using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
+		{
+			@Html.AntiForgeryToken()
+
+			<div class="form-group">
+				@Html.LabelFor(m => m.Name, new { @class = "form-label" })
+				@Html.TextBoxFor(m => m.Name, new { @class = "form-control form-field" })
+				<p>@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })</p>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(m => m.Email, new { @class = "form-label" })
+				@Html.TextBoxFor(m => m.Email, new { @class = "form-control form-field" })
+				<p>@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })</p>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(m => m.Username, new { @class = "form-label" })
+				@Html.TextBoxFor(m => m.Username, new { @class = "form-control form-field" })
+				<p>@Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })</p>
+			</div>
+
+			<div class="form-group">
+				@Html.LabelFor(m => m.Password, new { @class = "form-label" })
+				@Html.PasswordFor(m => m.Password, new { @class = "form-control form-field" })
+				<p>@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })</p>
+			</div>
+
+			<div>
+				@Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label" })
+				@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control form-field" })
+				<p>@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })</p>
+			</div>
+
+			<button type="submit" class="button step-form-button">Sign up</button>
+		}
+	</div>
+</div>

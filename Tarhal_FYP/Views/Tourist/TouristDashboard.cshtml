@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@Html.Partial("~/Views/Shared/_Navbar.cshtml")
+<div class="container tourist-dashboard">
+    <h3>Tourist's Plan</h3>
+    <div class="tourist-plans-container">
+        @for (int i = 0; i < 5; i++)
+        {
+            <div class="tourist-plan">
+                <h5 class="tourist-plan-name">Dofar Adventure</h5>
+                <p class="tourist-plan-detail">Salalah</p>
+                <p class="tourist-plan-detail">SUN 21/5</p>
+            </div>
+        }
+    </div>
+</div>

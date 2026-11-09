@@ -1,0 +1,17 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Tarhal_FYP.Models.ModelViews
+{
+    public class LoginViewModel
+    {
+        [Required(ErrorMessage = "Username is required")]
+        [Display(Name = "Username")]
+        public required string Username { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public required string Password { get; set; }
+        public bool RememberMe { get; set; }
+    }
+}
